@@ -1,0 +1,17 @@
+[package]
+name = "devoid"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+time = "0.3.22"
+sea-orm = { version = "^0", features = [ "runtime-actix-native-tls", "sqlx-sqlite", "macros", "with-json", "with-time" ] }
+actix-web = "4"
+migration = { path = "migration" }
+dotenvy = "0.15.7"
+
+[dev-dependencies]
+sea-orm = { version = "^0", features = [ "mock" ] }
+
+[workspace]
+members = ["migration"]
