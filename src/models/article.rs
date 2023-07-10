@@ -3,6 +3,15 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, DeriveActiveEnum, EnumIter)]
+#[sea_orm(rs_type = "String", db_type = "String(Some(1))")]
+pub enum Status {
+    #[sea_orm(string_value = "published")]
+    Published,
+    #[sea_orm(string_value = "draft")]
+    Draft,
+}
+
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "article")]
 pub struct Model {
@@ -13,7 +22,7 @@ pub struct Model {
     pub slug: String,
     pub image: Option<String>,
     pub content: String,
-    pub status: String,
+    pub status: Status,
     pub created_at: String,
     pub updated_at: String,
 }
