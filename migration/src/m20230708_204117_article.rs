@@ -1,18 +1,21 @@
 use sea_orm_migration::prelude::*;
 
 #[derive(Iden)]
-enum Article {
+pub enum Article {
     Table,
     Id,
     Title,
     Slug,
     Image,
     Content,
+    Status,
     #[iden = "created_at"]
     CreatedAt,
     #[iden = "updated_at"]
     UpdatedAt,
 }
+
+/// TODO: on postgresql i need to create data type for status
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -36,8 +39,24 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Article::Slug).string_len(440).not_null())
                     .col(ColumnDef::new(Article::Image).string_len(500))
                     .col(ColumnDef::new(Article::Content).text().not_null())
-                    .col(ColumnDef::new(Article::CreatedAt).date_time().not_null())
-                    .col(ColumnDef::new(Article::UpdatedAt).date_time().not_null())
+                    .col(
+                        ColumnDef::new(Article::Status)
+                            .string_len(10)
+                            .not_null()
+                            .default("draft"),
+                    )
+                    .col(
+                        ColumnDef::new(Article::CreatedAt)
+                            .timestamp()
+                            .default(Expr::current_timestamp())
+                            .not_null(),
+                    )
+                    .col(
+                        ColumnDef::new(Article::UpdatedAt)
+                            .timestamp()
+                            .default(Expr::current_timestamp())
+                            .not_null(),
+                    )
                     .to_owned(),
             )
             .await

@@ -4,7 +4,7 @@ use sea_orm_migration::prelude::*;
 pub struct Migration;
 
 #[derive(Iden)]
-enum Category {
+pub enum Category {
     Table,
     Id,
     Title,
@@ -33,8 +33,18 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Category::Title).string_len(120).not_null())
                     .col(ColumnDef::new(Category::Slug).string_len(240).not_null())
                     .col(ColumnDef::new(Category::Description).string_len(300))
-                    .col(ColumnDef::new(Category::CreatedAt).date_time().not_null())
-                    .col(ColumnDef::new(Category::UpdatedAt).date_time().not_null())
+                    .col(
+                        ColumnDef::new(Category::CreatedAt)
+                            .timestamp()
+                            .default(Expr::current_timestamp())
+                            .not_null(),
+                    )
+                    .col(
+                        ColumnDef::new(Category::UpdatedAt)
+                            .timestamp()
+                            .default(Expr::current_timestamp())
+                            .not_null(),
+                    )
                     .to_owned(),
             )
             .await
