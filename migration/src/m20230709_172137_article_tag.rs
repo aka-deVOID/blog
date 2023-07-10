@@ -1,4 +1,4 @@
-use crate::m20230708_204117_blog::Article;
+use crate::m20230708_204117_article::Article;
 use crate::m20230709_153603_tag::Tag;
 pub(crate) use sea_orm_migration::prelude::*;
 

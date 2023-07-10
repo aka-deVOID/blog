@@ -1,4 +1,4 @@
-use crate::{m20230708_204117_blog::Article, m20230709_153557_category::Category};
+use crate::{m20230708_204117_article::Article, m20230709_153557_category::Category};
 use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
