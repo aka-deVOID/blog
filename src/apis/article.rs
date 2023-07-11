@@ -1,7 +1,14 @@
+use crate::prelude::*;
+use crate::serializers::article::CreateArticle;
 use actix_web::{delete, get, patch, post, put, web, Responder};
 
 #[post("/article/create/")]
-async fn create_article_api() -> impl Responder {
+pub async fn create_article_api(
+    content: web::Json<CreateArticle>,
+    db: web::Data<AppState>,
+) -> impl Responder {
+    
+    println!("{content:?}");
     ""
 }
 

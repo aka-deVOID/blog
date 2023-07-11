@@ -36,7 +36,12 @@ impl MigrationTrait for Migration {
                             .not_null(),
                     )
                     .col(ColumnDef::new(Article::Title).string_len(220).not_null())
-                    .col(ColumnDef::new(Article::Slug).string_len(440).not_null())
+                    .col(
+                        ColumnDef::new(Article::Slug)
+                            .string_len(440)
+                            .unique_key()
+                            .not_null(),
+                    )
                     .col(ColumnDef::new(Article::Image).string_len(500))
                     .col(ColumnDef::new(Article::Content).text().not_null())
                     .col(

@@ -1,2 +1,1 @@
-
-mod article;
+pub mod article;

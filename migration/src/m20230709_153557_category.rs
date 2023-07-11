@@ -30,8 +30,18 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .not_null(),
                     )
-                    .col(ColumnDef::new(Category::Title).string_len(120).not_null())
-                    .col(ColumnDef::new(Category::Slug).string_len(240).not_null())
+                    .col(
+                        ColumnDef::new(Category::Title)
+                            .string_len(120)
+                            .unique_key()
+                            .not_null(),
+                    )
+                    .col(
+                        ColumnDef::new(Category::Slug)
+                            .string_len(240)
+                            .unique_key()
+                            .not_null(),
+                    )
                     .col(ColumnDef::new(Category::Description).string_len(300))
                     .col(
                         ColumnDef::new(Category::CreatedAt)

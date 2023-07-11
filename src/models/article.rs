@@ -7,8 +7,10 @@ use serde::{Deserialize, Serialize};
 #[sea_orm(rs_type = "String", db_type = "String(Some(1))")]
 pub enum Status {
     #[sea_orm(string_value = "published")]
+    #[serde(rename = "published")]
     Published,
     #[sea_orm(string_value = "draft")]
+    #[serde(rename = "draft")]
     Draft,
 }
 
