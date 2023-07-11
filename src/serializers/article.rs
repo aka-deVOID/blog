@@ -1,11 +1,10 @@
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 use crate::models::article::Status;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct CreateArticle {
     pub title: String,
-    pub slug: String,
     pub image: Option<String>,
     pub content: String,
     pub status: Status,
