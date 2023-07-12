@@ -24,6 +24,7 @@ pub struct Model {
     pub slug: String,
     pub image: Option<String>,
     pub content: String,
+    pub desc: String,
     pub status: Status,
     pub created_at: String,
     pub updated_at: String,
