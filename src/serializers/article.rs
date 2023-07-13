@@ -9,3 +9,6 @@ pub struct CreateArticle {
     pub content: String,
     pub status: Status,
 }
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct Image(String);
