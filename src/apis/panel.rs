@@ -65,12 +65,18 @@ pub async fn get_article_by_id_api(
 
 /// TODO: save bytes
 #[post("/article/img/upload/")]
-pub async fn upload_article_image_api(data: web::Bytes) -> ResponseResult {
+pub async fn upload_image_api(data: web::Bytes) -> ResponseResult {
+    todo!()
+}
+
+/// TODO: delete image
+#[post("/article/img/{id}/delete")]
+pub async fn delete_image_api(path: web::Path<i32>) -> ResponseResult {
     todo!()
 }
 
 /// TODO: update article
-#[put("/article/{id}/")]
+#[put("/article/{id}/update")]
 async fn update_article_api(path: web::Path<i32>) -> impl Responder {
     ""
 }

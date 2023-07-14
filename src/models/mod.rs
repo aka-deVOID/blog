@@ -5,5 +5,6 @@ pub mod prelude;
 pub mod article;
 pub mod category;
 pub mod category_article;
+pub mod image;
 pub mod tag;
 pub mod tag_article;

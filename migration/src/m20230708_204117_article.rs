@@ -1,3 +1,4 @@
+use crate::m20230714_113351_image::Image;
 use sea_orm_migration::prelude::*;
 
 #[derive(Iden)]
@@ -43,7 +44,7 @@ impl MigrationTrait for Migration {
                             .unique_key()
                             .not_null(),
                     )
-                    .col(ColumnDef::new(Article::Image).string_len(500))
+                    .col(ColumnDef::new(Article::Image).integer().unique_key())
                     .col(ColumnDef::new(Article::Content).text().not_null())
                     .col(ColumnDef::new(Article::Desc).string_len(220).not_null())
                     .col(
@@ -63,6 +64,11 @@ impl MigrationTrait for Migration {
                             .timestamp()
                             .default(Expr::current_timestamp())
                             .not_null(),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .from(Article::Table, Article::Image)
+                            .to(Image::Table, Image::Id),
                     )
                     .to_owned(),
             )

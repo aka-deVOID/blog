@@ -19,8 +19,9 @@ use actix_web::{
     middleware::{self, Logger},
     web, App, HttpServer,
 };
+use apis::panel::upload_image_api;
 
-use crate::apis::panel::{create_article_api, get_article_by_id_api, upload_article_image_api};
+use crate::apis::panel::{create_article_api, get_article_by_id_api};
 use dotenvy;
 use env_logger::Env;
 use sea_orm::{Database, DatabaseConnection};
@@ -42,7 +43,7 @@ async fn main() -> Result<()> {
             .service(
                 web::scope("/admin")
                     .guard(guard::Header("content-type", "application/json"))
-                    .service(upload_article_image_api)
+                    .service(upload_image_api)
                     .service(get_article_by_id_api)
                     .service(create_article_api),
             )
