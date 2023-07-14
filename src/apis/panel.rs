@@ -32,7 +32,7 @@ pub async fn create_article_api(
         title: Set(content.title.clone()),
         slug: Set(slugify!(&content.title, max_length = 440)),
         desc: Set(desc),
-        image: Set(content.image.clone()),
+        image: Set(content.image),
         content: Set(content.content.clone()),
         status: Set(content.status),
         ..Default::default()
