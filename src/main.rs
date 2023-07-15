@@ -19,7 +19,10 @@ use actix_web::{
     middleware::{self, Logger},
     web, App, HttpServer,
 };
-use apis::panel::upload_image_api;
+use apis::{
+    category::{create_category, get_list_categories},
+    panel::upload_image_api,
+};
 
 use crate::apis::panel::{create_article_api, get_article_by_id_api};
 use dotenvy;
@@ -45,8 +48,10 @@ async fn main() -> Result<()> {
                     .guard(guard::Header("content-type", "application/json"))
                     .service(upload_image_api)
                     .service(get_article_by_id_api)
-                    .service(create_article_api),
+                    .service(create_article_api)
+                    .service(create_category),
             )
+            .service(get_list_categories)
             .service(get_article_by_slug_api)
             .service(get_article_list)
     })

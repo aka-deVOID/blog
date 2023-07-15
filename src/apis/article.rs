@@ -34,8 +34,17 @@ pub async fn get_article_by_slug_api(
 pub async fn get_article_list(db: web::Data<AppState>) -> ResponseResult {
     let articles = Article::find()
         .filter(ArticleColumn::Status.eq("published"))
+        .select_only()
+        .columns([
+            ArticleColumn::Image,
+            ArticleColumn::Title,
+            ArticleColumn::Slug,
+            ArticleColumn::Desc,
+            ArticleColumn::CreatedAt,
+        ])
         .into_json()
         .all(&db.conn)
         .await?;
+
     Ok(HttpResponse::Ok().json(json!({ "ok": articles })))
 }

@@ -39,19 +39,19 @@ impl ResponseError for ResponseErr {
         match self {
             ResponseErr::Unauthorized(val) => HttpResponse::Unauthorized()
                 .status(self.status_code())
-                .json(val),
+                .json(json!({ "error": val })),
             ResponseErr::Forbidden(val) => HttpResponse::Forbidden()
                 .status(self.status_code())
-                .json(val),
+                .json(json!({ "error": val })),
             ResponseErr::NotFound(val) => HttpResponse::NotFound()
                 .status(self.status_code())
-                .json(val),
+                .json(json!({ "error": val })),
             ResponseErr::UnprocessableEntity(val) => HttpResponse::UnprocessableEntity()
                 .status(self.status_code())
-                .json(val),
+                .json(json!({ "error": val })),
             ResponseErr::InternetServerError => HttpResponse::InternalServerError()
                 .status(self.status_code())
-                .json("internal server error"),
+                .json(json!({"error": "internal server error"})),
         }
     }
 }
