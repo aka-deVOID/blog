@@ -20,7 +20,7 @@ use actix_web::{
     web, App, HttpServer,
 };
 use apis::{
-    category::{create_category, get_list_categories},
+    category::{create_category_api, get_list_categories_api},
     panel::upload_image_api,
 };
 
@@ -49,9 +49,9 @@ async fn main() -> Result<()> {
                     .service(upload_image_api)
                     .service(get_article_by_id_api)
                     .service(create_article_api)
-                    .service(create_category),
+                    .service(create_category_api),
             )
-            .service(get_list_categories)
+            .service(get_list_categories_api)
             .service(get_article_by_slug_api)
             .service(get_article_list)
     })

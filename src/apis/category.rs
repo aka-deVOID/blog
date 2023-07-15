@@ -10,7 +10,7 @@ use serde_json::json;
 use slugify::slugify;
 
 #[get("/category/list/")]
-pub async fn get_list_categories(db: web::Data<AppState>) -> ResponseResult {
+pub async fn get_list_categories_api(db: web::Data<AppState>) -> ResponseResult {
     let categories = Category::find()
         .select_only()
         .columns([
@@ -21,11 +21,12 @@ pub async fn get_list_categories(db: web::Data<AppState>) -> ResponseResult {
         .into_json()
         .all(&db.conn)
         .await?;
+
     Ok(HttpResponse::Ok().json(json!({ "ok": categories })))
 }
 
 #[post("/category/create/")]
-pub async fn create_category(
+pub async fn create_category_api(
     data: web::Json<CreateCategory>,
     db: web::Data<AppState>,
 ) -> ResponseResult {
