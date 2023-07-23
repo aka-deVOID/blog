@@ -11,16 +11,7 @@ use slugify::slugify;
 
 #[get("/category/list/")]
 pub async fn get_list_categories_api(db: web::Data<AppState>) -> ResponseResult {
-    let categories = Category::find()
-        .select_only()
-        .columns([
-            CategoryColumn::Title,
-            CategoryColumn::Slug,
-            CategoryColumn::Description,
-        ])
-        .into_json()
-        .all(&db.conn)
-        .await?;
+    let categories = Category::find().into_json().all(&db.conn).await?;
 
     Ok(HttpResponse::Ok().json(json!({ "ok": categories })))
 }
@@ -44,6 +35,7 @@ pub async fn create_category_api(
     data: web::Json<CreateCategory>,
     db: web::Data<AppState>,
 ) -> ResponseResult {
+    println!("{:?}", data);
     CategoryActiveModel {
         title: Set(data.title.clone()),
         slug: Set(slugify!(&data.title)),

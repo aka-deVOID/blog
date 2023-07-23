@@ -1,7 +1,6 @@
 use actix_web::{error::ResponseError, http::StatusCode, HttpResponse};
 use sea_orm::error::{DbErr as SeaORMError, RuntimeErr};
 use serde_json::{json, Value as JsonVal};
-use sqlx_core::error::Error as SqlxErr;
 use thiserror::Error;
 
 pub type ResponseResult = std::result::Result<HttpResponse, ResponseErr>;
@@ -66,9 +65,11 @@ impl From<SeaORMError> for ResponseErr {
             //                RuntimeErr::Internal(_) => Self::InternetServerError,
             //            },
             //            SeaORMError::Exec(runtime_err) => match runtime_err {
-            //                RuntimeErr::SqlxError(err) => match err {
-            //
+            //                RuntimeErr::SqlxError(sqlx_err) => match sqlx_err {
+            //                    _ => Self::InternetServerError,
             //                },
+            //                RuntimeErr::Internal(_) => todo!(),
+            //            },
             //                RuntimeErr::Internal(_) => Self::InternetServerError,
             //            },
             //            SeaORMError::Query(runtime_err) => match runtime_err {

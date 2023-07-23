@@ -1,17 +1,23 @@
 /// Main Blog
 /// TODO: Add search
 use crate::{
-    models::article::{
-        ActiveModel as ArticleActiveModel, Column as ArticleColumn, Entity as Article,
-        Model as ArticleModel, Status,
+    models::{
+        article::{
+            ActiveModel as ArticleActiveModel, Column as ArticleColumn, Entity as Article,
+            Model as ArticleModel, Status,
+        },
+        category::Entity as Category,
+        category_article::{Entity as ArticleCategory, Model as CategoryArticleModel},
     },
     prelude::*,
     serializers::article::{CreateArticle, Image},
 };
 use actix_web::{delete, get, post, put, web, HttpResponse, Responder};
-use sea_orm::{entity::*, prelude::*, query::*, ActiveValue::Set, DatabaseBackend, EntityTrait};
+use sea_orm::{
+    entity::*, prelude::*, query::LoaderTrait, query::*, ActiveValue::Set, DatabaseBackend,
+    EntityTrait,
+};
 use serde_json::json;
-use slugify::slugify;
 
 #[get("/blog/article/{slug}/")]
 pub async fn get_article_by_slug_api(
@@ -26,7 +32,7 @@ pub async fn get_article_by_slug_api(
         )
         .one(&db.conn)
         .await?;
-
+    // TODO: load many to many relation with category and tags
     Ok(HttpResponse::Ok().json(json!({ "ok": article })))
 }
 

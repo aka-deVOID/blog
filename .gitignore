@@ -3,3 +3,4 @@ Cargo.lock
 /migration/README.md
 test.db
 .fleet
+*.db
