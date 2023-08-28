@@ -20,4 +20,4 @@ env_logger = "0.10"
 #sea-orm = { version = "^0", features = [ "mock" ] }
 
 [workspace]
-members = ["migration"]
+members = ["migration", "front"]

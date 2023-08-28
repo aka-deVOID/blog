@@ -1,5 +1,3 @@
-/// Main Blog
-/// TODO: Add search
 use crate::{
     models::{
         article::{
@@ -19,7 +17,7 @@ use sea_orm::{
 };
 use serde_json::json;
 
-#[get("/blog/article/{slug}/")]
+#[get("/article/{slug}/")]
 pub async fn get_article_by_slug_api(
     path: web::Path<String>,
     db: web::Data<AppState>,
@@ -36,7 +34,7 @@ pub async fn get_article_by_slug_api(
     Ok(HttpResponse::Ok().json(json!({ "ok": article })))
 }
 
-#[get("/blog/")]
+#[get("/")]
 pub async fn get_article_list(db: web::Data<AppState>) -> ResponseResult {
     let articles = Article::find()
         .filter(ArticleColumn::Status.eq("published"))

@@ -1,0 +1,28 @@
+import { CheckBox, StandardListView, StyleMetrics } from "std-widgets.slint";
+// import "./NotoSans-Regular.ttf";
+import { SideBar } from "sidebar.slint";
+import { Palette } from "colors.slint";
+
+export component App inherits Window {
+    max-height: 500px;
+    max-width: 500px;
+    min-height: 500px;
+    min-width: 500px;
+    // default-font-family: "Noto Sans";
+    no-frame: false;
+    title: @tr("deVOID's Blog");
+    always-on-top: true;
+    background: Palette.background;
+
+    HorizontalLayout {
+        side-bar := SideBar {
+            model: [@tr("Menu" => "Portfolio"), @tr("Menu" => "About me"), @tr("Menu" => "Skills"), @tr("Menu" => "Blog")];
+        }
+
+        // if(side-bar.current-item == 0) : ControlsPage {}
+        // if(side-bar.current-item == 1) : ListViewPage {}
+        // if(side-bar.current-item == 2) : TableViewPage {}
+        // if(side-bar.current-item == 3) : TextEditPage {}
+        // if(side-bar.current-item == 4) : AboutPage {}
+    }
+}

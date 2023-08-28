@@ -1,5 +1,3 @@
-/// Admin Panel Apis
-/// TODO: Fix upload Image, Add safe CRUD for images or maybe add some model
 use crate::{
     models::article::{
         ActiveModel as ArticleActiveModel, Column as ArticleColumn, Entity as Article,
@@ -61,31 +59,4 @@ pub async fn get_article_by_id_api(
     };
 
     Ok(HttpResponse::Ok().json(article))
-}
-
-/// TODO: save bytes
-#[post("/article/img/upload/")]
-pub async fn upload_image_api(data: web::Bytes) -> ResponseResult {
-    todo!()
-}
-
-/// TODO: delete image
-#[post("/article/img/{id}/delete")]
-pub async fn delete_image_api(path: web::Path<i32>) -> ResponseResult {
-    todo!()
-}
-
-/// TODO: update article
-#[put("/article/{id}/update")]
-async fn update_article_api(path: web::Path<i32>) -> impl Responder {
-    ""
-}
-
-/// Done
-#[delete("/article/{id}/")]
-pub async fn delete_article_api(path: web::Path<i32>, db: web::Data<AppState>) -> ResponseResult {
-    Article::delete_by_id(path.into_inner())
-        .exec(&db.conn)
-        .await?;
-    Ok(HttpResponse::Ok().finish())
 }

@@ -11,7 +11,6 @@ use crate::{
 };
 use sea_orm::{entity::*, prelude::*, query::*, ActiveValue::Set, DatabaseBackend, EntityTrait};
 
-/// Done
 #[post("/article/category/create/")]
 pub async fn category_tag_rel(
     db: web::Data<AppState>,

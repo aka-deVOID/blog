@@ -7,6 +7,7 @@ mod prelude;
 mod response_error;
 mod serializers;
 mod state;
+pub mod utils;
 
 extern crate slugify;
 
@@ -23,7 +24,6 @@ use actix_web::{
 use apis::{
     article_category::category_tag_rel,
     category::{create_category_api, get_list_categories_api},
-    panel::upload_image_api,
     tag::get_list_tag_api,
 };
 
@@ -47,18 +47,12 @@ async fn main() -> Result<()> {
             .wrap(Logger::new("%a %{User-Agent}i"))
             .wrap(middleware::Compress::default())
             .service(
-                web::scope("/admin")
-                    .guard(guard::Header("content-type", "application/json"))
-                    .service(category_tag_rel)
-                    .service(upload_image_api)
-                    .service(get_article_by_id_api)
-                    .service(create_article_api)
-                    .service(create_category_api),
+                web::scope("/blog")
+                    .service(get_article_list)
+                    .service(get_article_by_slug_api)
+                    .service(get_list_categories_api)
+                    .service(get_list_tag_api),
             )
-            .service(get_list_tag_api)
-            .service(get_list_categories_api)
-            .service(get_article_by_slug_api)
-            .service(get_article_list)
     })
     .bind(("127.0.0.1", 8080))?
     .run()
